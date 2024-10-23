@@ -9,11 +9,13 @@ interface CandlestickChartProps {
   id?: string;
   height?: number;
   width?: number;
+  loading?: boolean;
 }
 
 export const CandlestickChart: React.FC<CandlestickChartProps> = ({
   title,
   id,
+  loading,
   height = 600,
   width = 1000,
   series = [],
@@ -41,6 +43,10 @@ export const CandlestickChart: React.FC<CandlestickChartProps> = ({
     }),
     [id, title]
   );
+
+  if (loading || !series?.length || series.every((s) => !(typeof s === 'object' && 'data' in s && s.data?.length))) {
+    return null;
+  }
 
   return (
     <Chart
