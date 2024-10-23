@@ -1,7 +1,10 @@
 'use client';
 
 import React, { useMemo } from 'react';
-import Chart, { Props } from 'react-apexcharts';
+import { Props } from 'react-apexcharts';
+import dynamic from 'next/dynamic';
+
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 interface CandlestickChartProps {
   series: Props['series'];
