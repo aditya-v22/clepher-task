@@ -1,5 +1,12 @@
 import { CandlestickGraphData, Interval, StockMetaData, TimeSeriesIntradayStockData } from '../typedefs/stock';
 
+const keyMapping = {
+  open: '1. open',
+  high: '2. high',
+  low: '3. low',
+  close: '4. close',
+};
+
 export const convertToCandlestickData = (
   data: TimeSeriesIntradayStockData,
   interval: Interval = Interval.FiveMin
@@ -15,10 +22,10 @@ export const convertToCandlestickData = (
   const candlestickData: CandlestickGraphData[] = [];
 
   for (const [timestamp, entry] of Object.entries(timeSeries)) {
-    const open = parseFloat(entry['1. open']);
-    const high = parseFloat(entry['2. high']);
-    const low = parseFloat(entry['3. low']);
-    const close = parseFloat(entry['4. close']);
+    const open = parseFloat(entry[keyMapping.open]);
+    const high = parseFloat(entry[keyMapping.high]);
+    const low = parseFloat(entry[keyMapping.low]);
+    const close = parseFloat(entry[keyMapping.close]);
 
     candlestickData.push({
       x: timestamp,

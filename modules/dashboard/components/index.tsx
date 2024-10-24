@@ -6,7 +6,6 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { CandlestickChart } from '@/components/charts/Candlestick';
 import { Form } from './Form';
 import { getTimeSeriesIntradayData } from '@/lib/apis/timeSeriesIntraday';
-import { Loader } from 'lucide-react';
 
 interface DashboardProps {
   stockData: TimeSeriesIntradayStockData;
@@ -46,15 +45,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ stockData }) => {
         loading={loading}
         onIntervalChange={fetchTimeSeriesIntradayData}
       />
-
-      {loading && (
-        <div className='h-[600px] w-[1000px] flex justify-center items-center'>
-          <Loader
-            size={24}
-            className='animate-spin text-indigo-500'
-          />
-        </div>
-      )}
 
       {!loading && !candlestickData.length && (
         <div className='h-[600px] w-[1000px] flex justify-center items-center text-lg font-semibold text-gray-600'>

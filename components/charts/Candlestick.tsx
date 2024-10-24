@@ -3,6 +3,7 @@
 import React, { useMemo } from 'react';
 import { Props } from 'react-apexcharts';
 import dynamic from 'next/dynamic';
+import { Loader } from 'lucide-react';
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
@@ -47,7 +48,21 @@ export const CandlestickChart: React.FC<CandlestickChartProps> = ({
     [id, title]
   );
 
-  if (loading || !series?.length || series.every((s) => !(typeof s === 'object' && 'data' in s && s.data?.length))) {
+  if (loading) {
+    return (
+      <div
+        className='flex justify-center items-center'
+        style={{ height, width }}
+      >
+        <Loader
+          size={24}
+          className='animate-spin text-indigo-500'
+        />
+      </div>
+    );
+  }
+
+  if (!series?.length || series.every((s) => !(typeof s === 'object' && 'data' in s && s.data?.length))) {
     return null;
   }
 
